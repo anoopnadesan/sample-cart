@@ -1,0 +1,94 @@
+<header>
+        <h1 class="cart-title">your shopping cart<span class="cart-item-count visible-xs"><span class="count">{{cart.length}}</span>Items</span></h1>
+    </header>
+<div class="cart-items">
+    <div class="row heading hidden-xs">
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7"><span class="count">{{cart.length}}</span>Items</div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">Size</div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Qty</div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Price</div>
+    </div>
+    <div class="row" ng-repeat="(index, item) in cart" ng-init="setSubtotal(item)">
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+            <img class="cart-image" ng-src="app/assets/T{{ item.p_id }}.jpg" alt="{{ item.p_name }}">
+            <div class="item-details">
+                <div class="item-title">{{ item.p_name }}</div>
+                <div class="item-info">
+                    <div>Style #: {{ item.p_style }}</div>
+                    <div>Color: {{ item.p_selected_color.name }}</div>
+                    <div class="cart-info-xs visible-xs">QTY:
+                        <input type="number" ng-model="item.p_quantity" ng-change="changeCart(this.value)" class="qty" min="1" max="100" required>
+                    </div>
+                    <div class="cart-info-xs visible-xs"><span class="dollars">{{ item.p_price*item.p_quantity }}</span></div>
+                </div>
+                <div class="cart-actions">
+                    <a ng-click="open(index)">Edit</a> | <a href="#">X Remove</a> | <a href="#">Save for later</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
+            <div class="item-size">{{ item.p_selected_size.code }}</div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs">
+            <input type="number" ng-model="item.p_quantity" ng-change="changeCart()" class="qty" min="1" max="100" required>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs"><span class="dollars">{{ item.p_price*item.p_quantity }}</span></div>
+    </div>
+</div>
+<div class="cart-checkout-info">
+    <div class="row">
+        <div class="col-lg-4 col-md-4  col-sm-4 hidden-xs customer-help">
+            <h4>Need help or have questions?</h4>
+            <div class="customer-service-contact">call customer serrvice at 1-800-555-5555</div>
+            <div class="other-options"><a href="#">Chat with one of our stylists</a></div>
+            <div class="other-options"><a href="#">See return and exchange policy</a></div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 checkout-info">
+            <div class="promotion">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                        Enter promotion code or gift code
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                        <input type="text">
+                        <button>Apply</button>
+                    </div>
+                </div>
+            </div>
+            <div class="payment_info">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 checkout-lbl">
+                        subtotal
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
+                        <span class="dollars">{{ subtotal | number:2 }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 checkout-lbl">
+                        promotion code <span class="promo-code">jf10</span> applied
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
+                        <span class="dollars-promo">{{ discountAmount | number:2 }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 checkout-lbl">
+                        estimated shipping
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 checkout-lbl pull-right">
+                        Free
+                    </div>
+                </div>
+                <div class="row estimated_total">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 checkout-lbl">
+                        estimated total
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 checkout-lbl pull-right">
+                        <span class="dollars">{{ subtotal-discountAmount | number:2 }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

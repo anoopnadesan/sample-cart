@@ -1,0 +1,23 @@
+<div class="modal-body">
+    <div class="modal-header">
+        <h3 class="modal-title">{{ product.p_name }}</h3>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            Price : {{ product.p_price * qty_selected.value }}$<br> 
+            Size : <select ng-model="product.p_selected_size"
+                            ng-options="item as item.name for item in product.p_available_options.sizes track by item.code">
+                    </select><br>
+            Quantity : <select ng-model="qty_selected"
+                            ng-options="item as item.value for item in qty_array track by item.value">
+                       </select>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <img class="cart-image" ng-src="app/assets/T{{ product.p_id }}.jpg" alt="{{ product.p_name }}">
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="updateCart();">Save</button>
+    <button class="btn btn-primary" type="button" ng-click="close()">Close</button>
+</div>
